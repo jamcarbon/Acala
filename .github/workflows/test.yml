@@ -1,6 +1,6 @@
 # generate by yq eval 'explode(.)' test.yml.src > test.yml
 # https://github.com/mikefarah/yq
-#test#1
+#test#2
 name: Test
 on:
   pull_request:
@@ -43,6 +43,18 @@ jobs:
           components: rustfmt
           target: wasm32-unknown-unknown
           default: true
+
+      - name: Installing Prerequisites
+        run: sudo apt-get update
+      - name: Installing Prerequisites 1
+        run: curl https://sh.rustup.rs -sSf -y | sh 
+      - name: Installing Prerequisites 2
+        run: sudo apt-get install -y git clang curl libssl-dev llvm libudev-dev
+      - name: Installing Prerequisites 3
+        run: git config --global submodule.recurse true
+      - name: Installing Prerequisites 4
+        run: make init
+
       - name: Check format
         run: cargo fmt --all -- --check
       - name: Build
